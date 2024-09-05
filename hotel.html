@@ -1,0 +1,874 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gold Bears Hotel</title>
+    <link rel="icon" href="picture/logo.png" type="image/x-icon">
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+            background-color: rgb(245, 245, 220); 
+            color: #4A5D23; 
+            overflow-x: hidden; 
+            
+        }
+
+        header {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: rgba(245, 245, 220, 0.7); 
+            color: #4A5D23; 
+            padding: 15px 0; 
+            text-align: center;
+            backdrop-filter: blur(10px); 
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1); 
+            z-index: 1000; 
+            transition: all 0.3s ease;
+        }
+
+        header.small {
+            padding: 7px 0; 
+            font-size: 0.8em;
+        }
+
+        header .logo {
+            margin-left: 20px;
+            height: 60px; 
+            display: flex;
+            align-items: center;
+            transition: height 0.3s ease; 
+        }
+
+        header.small .logo {
+            height: 30px; 
+        }
+
+        header .logo img {
+            height: 80px; 
+            transition: height 0.3s ease; 
+        }
+
+        header.small .logo img {
+            height: 40px; 
+        }
+
+        header .title {
+            flex: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: font-size 0.3s ease; 
+        }
+
+        header .title h1 {
+            margin: 0;
+            font-size: 26px; 
+            transition: font-size 0.3s ease; 
+        }
+
+        header.small .title h1 {
+            font-size: 14px; 
+        }
+
+        header .nav {
+            display: flex;
+            gap: 20px;
+            font-size: 20px; 
+            margin-right: 70px;
+            transition: font-size 0.3s ease;
+        }
+
+        header.small .nav {
+            font-size: 14px; 
+        }
+
+        header .nav a {
+            color: #4A5D23; 
+            text-decoration: none;
+            font-weight: bold;
+            transition: color 0.3s ease;
+        }
+
+        header .nav a:hover {
+            text-decoration: underline;
+        }
+
+        .hero-image {
+            background-image: url('picture/hotel1.jpeg'); 
+            background-size: cover;
+            width: 100%;
+            background-position: center;
+            height: 100vh;
+            margin-top: 60px; 
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #d8cab8; 
+            text-align: center;
+        }
+
+        .hero-text {
+            background-color: rgba(245, 245, 220, 0.7); 
+            padding: 20px;
+            color: #4A5D23;
+            border-radius: 10px;
+            opacity: 0; 
+            transform: translateY(20px); 
+            transition: opacity 0.5s ease, transform 0.5s ease; 
+            margin-left: 20px; 
+        }
+
+        .hero-text.show {
+            opacity: 1; 
+            transform: translateY(0); 
+        }
+
+        .section {
+            display: flex;
+            flex-wrap: left;
+            padding: 40px 20px;
+            align-items: center;
+            opacity: 0; 
+            transform: translateY(20px); 
+            transition: opacity 0.5s ease, transform 0.5s ease; 
+            
+        }
+
+        .section img {
+            width: 50%;
+            max-width: 600px;
+            flex-shrink: 0;
+        }
+
+        .section .content {
+            width: 50%;
+            padding: 20px;
+            color: #4A5D23;
+            text-align: center;
+            font-size: 18px;
+        }
+
+        .section.show {
+            opacity: 1; 
+            transform: translateY(0); 
+        }
+
+        .divider {
+            height: 2px;
+            width: 1560px;
+            background-color: #D8CAB8; 
+            margin: 20px 0; 
+            margin-left: 50px;
+            align-items: center;
+            text-align: center;
+        }
+
+        .gallery-container {
+            display: flex;
+            justify-content: left;
+            align-items: center;
+            margin-left: 20px;
+            margin-top: -20px;
+        }
+
+        .gallery-container img {
+            width: 70px;
+            height: 70px;
+            object-fit: cover;
+            cursor: pointer;
+            border: 2px solid #4A5D23;
+            border-radius: 5px;
+            margin: 0 5px;
+            transition: border-color 0.3s ease;
+        }
+
+        .gallery-container img.active {
+            border-color: #d8cab8;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+        }
+
+        .gallery-container img:hover {
+            opacity: 0.8;
+        }
+        
+        footer {
+        background-color: #dcdcb7;
+        color: #4A5D23;
+        padding: 20px;
+        text-align: center;
+        position: relative;
+        clear: both; 
+        margin-top: 20px; 
+        margin-top: auto;
+    }
+
+    .button {
+        background-color: #4A5D23;
+        color: #d8cab8;
+        border: none;
+        border-radius: 5px;
+        padding: 15px 20px;
+        font-size: 16px;
+        cursor: pointer;
+        text-decoration: none;
+        display: inline-block;
+        transition: background-color 0.3s ease, color 0.3s ease;
+    }
+
+    .button:hover {
+        background-color: #3e4a1e;
+        color: #d8cab8;
+    }
+
+    @media (max-width: 768px) {
+    header {
+        padding: 10px 0;
+    }
+
+    header.small {
+        padding: 5px 0;
+    }
+
+    header .logo {
+        height: 40px;
+        margin-left: 10px;
+    }
+
+    header.small .logo {
+        height: 20px;
+    }
+
+    header .logo img {
+        height: 60px;
+    }
+
+    header.small .logo img {
+        height: 30px;
+    }
+
+    header .title h1 {
+        font-size: 20px;
+    }
+
+    header.small .title h1 {
+        font-size: 10px;
+    }
+
+    header .nav {
+        margin-right: 30px;
+        gap: 10px;
+        font-size: 16px;
+    }
+
+    header.small .nav {
+        font-size: 12px;
+    }
+    .column{
+        flex-direction:column
+    }
+    .gallery-container img {
+        justify-content: center;
+        flex-wrap: wrap;
+    }
+    .divider{
+        width: 100%;
+    }
+}
+
+@media (max-width: 480px) {
+    header {
+        padding: 8px 0;
+    }
+
+    header.small {
+        padding: 4px 0;
+    }
+
+    header .logo {
+        height: 30px;
+        margin-left: 5px;
+    }
+
+    header.small .logo {
+        height: 15px;
+    }
+
+    header .logo img {
+        height: 50px;
+    }
+
+    header.small .logo img {
+        height: 25px;
+    }
+
+    header .title h1 {
+        font-size: 18px;
+    }
+
+    header.small .title h1 {
+        font-size: 9px;
+    }
+
+    header .nav {
+        margin-right: 20px;
+        gap: 5px;
+        font-size: 14px;
+    }
+
+    header.small .nav {
+        font-size: 10px;
+    }
+    .column{
+        flex-direction:column
+    }
+    .gallery-container img {
+        justify-content: center;
+        flex-wrap: wrap;
+    }
+    .divider{
+        width: 100%;
+    }
+}
+@media (max-width: 768px) {
+    header .nav {
+        flex-direction: column;
+        gap: 10px;
+        align-items: center;
+        margin-right: 10px;
+    }
+
+    .section {
+        flex-direction: column;
+        margin-left: 0;
+        padding: 20px 10px;
+    }
+
+    .section img, .section .content {
+        width: 100%;
+        margin: 0;
+    }
+
+    .gallery-container {
+        flex-direction: column;
+        align-items: center;
+        margin: 20px 0;
+    }
+
+    .gallery-container img {
+        margin: 5px 0;
+        width: 90%;
+        max-width: 200px;
+        justify-content: center;
+        flex-wrap: wrap;
+    }
+    .column{
+        flex-direction:column
+    }
+    .divider{
+        width: 100%;
+    }
+}
+
+@media (max-width: 480px) {
+    header .nav {
+        font-size: 12px;
+        margin-right: 5px;
+    }
+
+    header .title h1 {
+        font-size: 14px;
+    }
+
+    .section {
+        padding: 15px 5px;
+    }
+
+    .gallery-container img {
+        width: 80px;
+        height: 80px;
+        justify-content: center;
+        flex-wrap: wrap;
+    }
+    .column{
+        flex-direction:column
+    }
+    .divider{
+        width: 100%;
+    }
+}
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+}
+
+main {
+    width: 100%;
+    max-width: 1200px;
+    margin: auto;
+}
+
+header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 20px;
+}
+
+.logo img {
+    max-width: 100px;
+}
+
+.title h1 {
+    font-size: 2em;
+}
+
+.nav {
+    display: flex;
+    gap: 15px;
+}
+
+.nav a {
+    text-decoration: none;
+    font-size: 1em;
+}
+
+/* Adjustments for smaller screens */
+@media (max-width: 768px) {
+    .title h1 {
+        font-size: 1.5em;
+    }
+
+    .nav {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .nav a {
+        font-size: 0.9em;
+    }
+
+    .hero-text {
+        text-align: center;
+        padding: 10px;
+    }
+
+    .section {
+        flex-direction: column;
+        align-items: center;
+        margin-left: 0;
+        text-align: center;
+    }
+
+    .section img {
+        width: 100%;
+        max-width: 300px;
+        height: auto;
+    }
+
+    .content {
+        margin: 20px;
+        text-align: center;
+    }
+
+    .gallery-container {
+        margin-left: 0;
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+        gap: 10px;
+    }
+
+    .gallery-container img {
+        width: 10%;
+        max-width: 150px;
+        height: auto;
+    }
+}
+
+/* Further adjustments for very small screens */
+@media (max-width: 480px) {
+    .title h1 {
+        font-size: 1.2em;
+    }
+
+    .nav a {
+        font-size: 0.8em;
+    }
+
+    .content {
+        font-size: 0.9em;
+        margin: 10px;
+    }
+
+    .section img {
+        max-width: 100%;
+    }
+
+    .gallery-container img {
+        width: 100%;
+        max-width: 100px;
+    }
+
+    .footer {
+        text-align: center;
+        font-size: 0.8em;
+    }
+}
+#header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 20px;
+    background: rgba(245, 245, 220, 0.7); 
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+/* Логотип */
+.logo img {
+    max-width: 100px;
+    height: auto;
+}
+
+/* Заголовок */
+.title h1 {
+    font-size: 1.5em;
+    margin: 0;
+}
+
+/* Меню навігації */
+.nav {
+    display: flex;
+    gap: 15px;
+}
+
+.nav a {
+    text-decoration: none;
+    color: #333;
+    font-size: 1em;
+}
+
+/* Адаптивні налаштування для середніх і малих екранів */
+@media (max-width: 768px) {
+    /* Вертикальне вирівнювання елементів на планшетах */
+    #header {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .title h1 {
+        font-size: 1.2em;
+    }
+
+    .nav {
+        flex-direction: column;
+        gap: 10px;
+    }
+}
+
+@media (max-width: 480px) {
+    /* Налаштування для мобільних телефонів */
+    #header {
+        padding: 10px;
+    }
+
+    .logo img {
+        max-width: 80px;
+    }
+
+    .title h1 {
+        font-size: 1em;
+    }
+
+    .nav {
+        gap: 8px;
+    }
+
+    .nav a {
+        font-size: 0.9em;
+    }
+}
+    </style>
+</head>
+<body>
+    <header id="header">
+        <a href="index.html" class="logo">
+            <img src="picture/logo.png" alt="Logo">
+        </a>        
+        <div class="title">
+            <h1>Gold Bears </h1>
+        </div>
+        <div class="nav">
+            <a href="restaurant.html">Restaurant</a>
+            <a href="hotel.html">Hotel</a>
+        </div>
+    </header>
+
+    <div class="hero-image">
+        <div class="hero-text">
+            <h3>Готель "Gold Bears"</h3>
+            <p>Готель працює цілодобово, без вихідних. Загальна кількість номерів – 68.</p>
+            <p>Реєстрація та поселення в готель починається о 14:00 за місцевим часом. Можливий ранній заїзд з 6 ранку за умови наявності вільних номерів.</p>
+            <p>Виселення з готелю – до 12:00 за місцевим часом. Мінімальна розрахункова одиниця – 1 доба.</p>
+            <p>У вартість враховано сніданок по типу "шведська лінія" та парковку на території готелю.</p>
+            <p>У кожному номері є цифрове телебачення та плазмові TV, телефони для внутрішнього зв'язку,</p>
+            <p>якісне безкоштовне підключення до мережі Інтернет (Wi-Fi), загальна система охолоджування та підігріву повітря, а також холодильник з міні-баром.</p>
+        </div>
+    </div>
+    
+
+    <div class="section" style="margin-left: 150px;">
+        <img id="main-image" src="picture/hotel2.jpeg" alt="Image"> 
+        <div class="content" style="text-align: left; font-size: 18px; margin-left: 50px; margin-right: 50px;">
+            <h2>Номер "Стандарт"</h2>
+            <h3>1400 грн за добу</h3>
+            <p>Номери "Стандарт" – це затишні і зручні двомісні номери в головному корпусі готелю "Gold Bears" загальною площею 18 кв.м. кожен.</p>
+            <p>Всі номери обладнані цифровим телебаченням, плазмовими ТV, телефоном для внутрішнього зв'язку, Wi-Fi, загальною системою охолоджування та підігріву повітря, а також холодильником з міні баром. В кожному номері цього типу є душ.</p>
+            <p>Вікна кімнат виходять на внутрішній двір та парковку.</p>
+            <a href="bookingHotel.html" class="button">Забронювати</a>
+        </div>
+    </div>
+    
+    <div class="gallery-container" style="margin-left: 165px;  ">
+        <img src="picture/hotel2.jpeg" alt="Extra Image 1" data-image="picture/hotel2.jpeg">
+        <img src="picture/hotel3.jpeg" alt="Extra Image 2" data-image="picture/hotel3.jpeg">
+        <img src="picture/hotel4.jpeg" alt="Extra Image 3" data-image="picture/hotel4.jpeg">
+    </div>
+    
+ 
+    <div class="divider"></div> 
+
+    <div class="section" style="margin-left: 150px;">
+        <img id="main-image" src="picture/hotel5.jpeg" alt="Image"> 
+        <div class="content" style="text-align: left; font-size: 18px; margin-left: 50px; margin-right: 50px;">
+            <h2>Номер "Класік"</h2>
+            <h3>1300 грн за добу</h3>
+            <p>В SPA комплексі є два номери "Класік" – загальною площею 18 кв.м. кожен.</p>
+            <p>Всі номери обладнані цифровим телебаченням, плазмовими ТV, телефоном для внутрішнього зв'язку, Wi-Fi, загальною системою охолоджування та підігріву повітря, а також холодильником з міні баром. В кожному номері цього типу є душ.</p>
+            <p>Денне освітлення в номерах забезпечується даховими вікнами.</p>
+            <a href="bookingHotel.html" class="button">Забронювати</a>
+        </div>
+    </div>
+    
+    <div class="gallery-container" style="margin-left: 165px;  ">
+        <img src="picture/hotel5.jpeg" alt="Extra Image 1" data-image="picture/hotel5.jpeg">
+        <img src="picture/hotel6.jpeg" alt="Extra Image 2" data-image="picture/hotel6.jpeg">
+        <img src="picture/hotel7.jpeg" alt="Extra Image 3" data-image="picture/hotel7.jpeg">
+        <img src="picture/hotel8.jpeg" alt="Extra Image 1" data-image="picture/hotel8.jpeg">
+        <img src="picture/hotel9.jpeg" alt="Extra Image 2" data-image="picture/hotel9.jpeg">
+        <img src="picture/hotel10.jpeg" alt="Extra Image 3" data-image="picture/hotel10.jpeg">
+    </div>
+    
+    <div class="divider"></div>
+
+
+    <div class="section" style="margin-left: 150px;">
+        <img id="main-image" src="picture/hotel12.jpeg" alt="Image"> 
+        <div class="content" style="text-align: left; font-size: 18px; margin-left: 50px; margin-right: 50px;">
+            <h2>Номер "Стандарт Комфорт"</h2>
+            <h3>1500 грн за добу</h3>
+            <p>Цей тип номерів – це покращений варіант номерів Стандарт, що знаходиться в головному корпусі готелю загальною площею 22 кв.м. кожен. В кожному номері є душ і сучасна сантехніка, підвищені вимоги безпеки забезпечуються кодовими замками.</p>
+            <p>Всі номери обладнані цифровим телебаченням, плазмовими ТV, телефоном для внутрішнього зв'язку, Wi-Fi, загальною системою охолоджування та підігріву повітря, а також холодильником з міні баром. В кожному номері цього типу є душ.</p>
+            <p>Вікна кімнат виходять на внутрішній двір та парковку.</p>
+            <a href="bookingHotel.html" class="button">Забронювати</a>
+        </div>
+    </div>
+    
+    <div class="gallery-container" style="margin-left: 165px;  ">
+        <img src="picture/hotel12.jpeg" alt="Extra Image 1" data-image="picture/hotel12.jpeg">
+        <img src="picture/hotel13.jpeg" alt="Extra Image 2" data-image="picture/hotel13.jpeg">
+        <img src="picture/hotel14.jpeg" alt="Extra Image 3" data-image="picture/hotel14.jpeg">
+        <img src="picture/hotel15.jpeg" alt="Extra Image 1" data-image="picture/hotel15.jpeg">
+        <img src="picture/hotel16.jpeg" alt="Extra Image 2" data-image="picture/hotel16.jpeg">
+        <img src="picture/hotel17.jpeg" alt="Extra Image 3" data-image="picture/hotel17.jpeg">
+    </div>
+    
+    <div class="divider"></div>
+
+
+    <div class="section" style="margin-left: 150px;">
+        <img id="main-image" src="picture/hotel18.jpeg" alt="Image"> 
+        <div class="content" style="text-align: left; font-size: 18px; margin-left: 50px; margin-right: 50px;">
+            <h2>"Номер Бізнес Комфорт"</h2>
+            <h3>1600 грн за добу</h3>
+            <p>Номери Бізнес Комфорт – це затишні і зручні двомісні номери в головному корпусі готелю "Gold Bears" загальною площею 28 кв.м. кожен.</p>
+            <p>В кожному номері цього типу є комфортне двоспальне ліжко та диван.</p>
+            <p>Номери обладнані цифровим телебаченням, плазмовим ТV, телефоном для внутрішнього зв'язку, Wi-Fi, загальною системою охолоджування та підігріву повітря, а також холодильником з міні баром.</p>
+            <p>Вікна кімнат виходять на внутрішній двір та парковку, мансардні номери мають дахові вікна.</p>
+            <a href="bookingHotel.html" class="button">Забронювати</a>
+        </div>
+    </div>
+    
+    <div class="gallery-container" style="margin-left: 165px;">
+        <img src="picture/hotel18.jpeg" alt="Extra Image 1" data-image="picture/hotel18.jpeg">
+        <img src="picture/hotel19.jpeg" alt="Extra Image 2" data-image="picture/hotel19.jpeg">
+        <img src="picture/hotel20.jpeg" alt="Extra Image 3" data-image="picture/hotel20.jpeg">
+        <img src="picture/hotel21.jpeg" alt="Extra Image 1" data-image="picture/hotel21.jpeg">
+        <img src="picture/hotel22.jpeg" alt="Extra Image 2" data-image="picture/hotel22.jpeg">
+        <img src="picture/hotel23.jpeg" alt="Extra Image 3" data-image="picture/hotel23.jpeg">
+        <img src="picture/hotel24.jpeg" alt="Extra Image 3" data-image="picture/hotel24.jpeg">
+    </div>
+    
+    <div class="divider"></div>
+
+    <div class="section" style="margin-left: 150px;">
+        <img id="main-image" src="picture/hotel25.jpeg" alt="Image"> 
+        <div class="content" style="text-align: left; font-size: 18px; margin-left: 50px; margin-right: 50px;">
+            <h2>"Номер Напівлюкс"</h2>
+            <h3>1800 грн за добу</h3>
+            <p>Якщо Ви хочете незвичний інтер'єр для романтичного уікенду чи подорожі вдвох, зверніть увагу на номер "Напівлюкс" площею 35 кв.м. Його особливістю є незвичний інтер'єр, який поєднує вітальню, спальню і відкриту ванну в стилі романтизму. Крім того, в номері є санвузел з душем і сучасною сантехнікою.</p>
+            <p>Всі номери обладнані цифровим телебаченням, плазмовими ТV, телефоном для внутрішнього зв'язку, Wi-Fi, загальною системою охолоджування та підігріву повітря, а також холодильником з міні баром.</p>
+            <p>Додаткове освітлення забезпечується даховими вікнами.</p>            
+            <a href="bookingHotel.html" class="button">Забронювати</a>
+        </div>
+    </div>
+    
+    <div class="gallery-container" style="margin-left: 165px;">
+        <img src="picture/hotel25.jpeg" alt="Extra Image 1" data-image="picture/hotel25.jpeg">
+        <img src="picture/hotel26.jpeg" alt="Extra Image 2" data-image="picture/hotel26.jpeg">
+        <img src="picture/hotel27.jpeg" alt="Extra Image 3" data-image="picture/hotel27.jpeg">
+        <img src="picture/hotel28.jpeg" alt="Extra Image 1" data-image="picture/hotel28.jpeg">
+        <img src="picture/hotel29.jpg" alt="Extra Image 2" data-image="picture/hotel29.jpg">
+        <img src="picture/hotel30.jpeg" alt="Extra Image 3" data-image="picture/hotel30.jpeg">
+        <img src="picture/hotel31.jpg" alt="Extra Image 3" data-image="picture/hotel31.jpg">
+    </div>
+    
+    <div class="divider"></div>
+
+    <div class="section" style="margin-left: 150px;">
+        <img id="main-image" src="picture/hotel32.jpeg" alt="Image"> 
+        <div class="content" style="text-align: left; font-size: 18px; margin-left: 50px; margin-right: 50px;">
+            <h2>"Стандарт Покращений"</h2>
+            <h3>1500 грн за добу</h3>
+            <p>Номери категорії Стандарт Покращений у другому корпусі готелю «Срібні Лелеки» – це 28 зручних номерів бізнес класу з окремими ліжками (1500 грн за добу) і 20 номерів з одним великим ліжком (1600 грн за добу) та комфортними меблями, в сучасному дизайнерському стилі загальною площею 36 кв.м. кожен.</p>
+            <p>Всі номери обладнані цифровим телебаченням, плазмовими TV, внутрішнім телефоном, Wi-Fi, загальною системою охолоджування та підігріву повітря, а також холодильником з міні баром. В кожному номері цього типу є душ або ванна кімната. Вхід до номеру здійснюється за допомогою електронного програматора. Для зручності номера оснащені балконом або терасою.</p>
+            <p>Вікна кімнат виходять на внутрішній дворик з парковкою або зелену територію, мансардні номери мають дахові вікна.</p>                       
+            <a href="bookingHotel.html" class="button">Забронювати</a>
+        </div>
+    </div>
+    
+    <div class="gallery-container" style="margin-left: 165px;">
+        <img src="picture/hotel32.jpeg" alt="Extra Image 1" data-image="picture/hotel32.jpeg">
+        <img src="picture/hotel33.jpeg" alt="Extra Image 2" data-image="picture/hotel33.jpeg">
+        <img src="picture/hotel34.jpeg" alt="Extra Image 3" data-image="picture/hotel34.jpeg">
+        <img src="picture/hotel35.jpeg" alt="Extra Image 1" data-image="picture/hotel35.jpeg">
+        <img src="picture/hotel36.jpeg" alt="Extra Image 2" data-image="picture/hotel36.jpeg">
+        <img src="picture/hotel37.jpeg" alt="Extra Image 3" data-image="picture/hotel37.jpeg">
+    </div>
+    
+    <div class="divider"></div>
+
+    <div class="section" style="margin-left: 150px;">
+        <img id="main-image" src="picture/hotel38.jpeg" alt="Image"> 
+        <div class="content" style="text-align: left; font-size: 18px; margin-left: 50px; margin-right: 50px;">
+            <h2>"Люкс VIP"</h2>
+            <h3>2500 грн за добу</h3>
+            <p>В номері "Люкс VIP" Ви відчуєте себе особливо важливим гостем. Загальна площа складає 72 кв.м. В цьому двомісному дворівневому номері до послуг наших гостей – зручне двоспальне ліжко розміру King size, два санвузли з сучасною сантехнікою (душ на першому поверсі та ванна кімната на другому), диван та два балкони.</p>
+            <p>Мармурові сходинки між рівнями додають атмосфери винятковості, а кодований замок забезпечує вимоги до безпеки номерів такого класу.</p>
+            <p>Всі номери обладнані цифровим телебаченням, кавовою машиною, плазмовими ТV, телефоном для внутрішнього зв'язку, Wi-Fi, загальною системою охолоджування та підігріву повітря, а також холодильником з міні баром.</p>
+            <p>Вікна кімнат виходять на автопарковку та зелений масив.</p>                                 
+            <a href="bookingHotel.html" class="button">Забронювати</a>
+        </div>
+    </div>
+    
+    <div class="gallery-container" style="margin-left: 165px;">
+        <img src="picture/hotel38.jpeg" alt="Extra Image 1" data-image="picture/hotel38.jpeg">
+        <img src="picture/hotel39.jpeg" alt="Extra Image 2" data-image="picture/hotel39.jpeg">
+        <img src="picture/hotel40.jpeg" alt="Extra Image 3" data-image="picture/hotel40.jpeg">
+        <img src="picture/hotel41.jpeg" alt="Extra Image 1" data-image="picture/hotel41.jpeg">
+        <img src="picture/hotel42.jpeg" alt="Extra Image 2" data-image="picture/hotel42.jpeg">
+        <img src="picture/hotel43.jpeg" alt="Extra Image 3" data-image="picture/hotel43.jpeg">
+    </div>
+    
+    <div class="divider"></div>
+
+    <div class="section" style="margin-left: 150px;">
+        <img id="main-image" src="picture/hotel44.jpeg" alt="Image"> 
+        <div class="content" style="text-align: left; font-size: 18px; margin-left: 50px; margin-right: 50px;">
+            <h2>"Люкс VIP LOFT"</h2>
+            <h3>2500 грн за добу</h3>
+            <p>Номери "VIP LOFT" – для любителів комфорту і мінімалізму. Двомісний двохярусний номер класу "ЛЮКС" у другому корпусі з загальною площею номера – 72 кв.м. і двома балконами. Яруси номера сполучаються мармуровими сходинками. Для підвищеної безпеки номер обладнаний кодовим замком.</p>
+            <p>У номері – зручне двоспальне ліжко розміру King size та розкладний диван, сучасна сантехніка з душем, краном-біде. Як і в інших номерах, тут є кондиціонер, кавова машина, холодильник, супутникове телебачення, телефон та безкоштовне підключення до мережі Інтернет (Wi-Fi).</p>
+            <p>Вікна кімнат виходять на внутрішній двір, парковку та на зелений масив.</p>                                            
+            <a href="bookingHotel.html" class="button">Забронювати</a>
+        </div>
+    </div>
+    
+    <div class="gallery-container" style="margin-left: 165px; margin-bottom: 30px;">
+        <img src="picture/hotel44.jpeg" alt="Extra Image 1" data-image="picture/hotel44.jpeg">
+        <img src="picture/hotel45.jpeg" alt="Extra Image 2" data-image="picture/hotel45.jpeg">
+        <img src="picture/hotel46.jpeg" alt="Extra Image 3" data-image="picture/hotel46.jpeg">
+        <img src="picture/hotel47.jpeg" alt="Extra Image 1" data-image="picture/hotel47.jpeg">
+        <img src="picture/hotel48.jpeg" alt="Extra Image 2" data-image="picture/hotel48.jpeg">
+        <img src="picture/hotel49.jpeg" alt="Extra Image 3" data-image="picture/hotel49.jpeg">
+        <img src="picture/hotel50.jpeg" alt="Extra Image 3" data-image="picture/hotel50.jpeg">
+    </div>
+
+    
+
+
+    <footer>
+        <div style="margin-bottom: 10px;" >
+            <a href="" style="margin: 0 10px; color: #4A5D23; text-decoration: none;">Facebook</a>
+            <a href="" style="margin: 0 10px; color: #4A5D23; text-decoration: none;">Instagram</a>
+            <a href="" style="margin: 0 10px; color: #4A5D23; text-decoration: none;">Twitter</a>
+        </div>
+        <p>Контактні дані: +38 (123) 456-78-90 | Gold@Bears.com.ua</p>
+        <p>&copy; 2024 «Gold Bears». Всі права захищені.</p>
+    </footer>
+    
+
+    <script>
+document.addEventListener('DOMContentLoaded', () => {
+    const header = document.getElementById('header');
+    const sections = document.querySelectorAll('.section, .hero-text');
+    const galleryContainers = document.querySelectorAll('.gallery-container');
+
+    window.addEventListener('scroll', () => {
+        if (window.scrollY > 50) {
+            header.classList.add('small');
+        } else {
+            header.classList.remove('small');
+        }
+    });
+
+    function animateOnScroll() {
+        const triggerBottom = window.innerHeight * 0.5;
+
+        sections.forEach(section => {
+            const sectionTop = section.getBoundingClientRect().top;
+
+            if (sectionTop < triggerBottom) {
+                section.classList.add('show');
+            } else {
+                section.classList.remove('show');
+            }
+        });
+    }
+
+    window.addEventListener('scroll', animateOnScroll);
+    animateOnScroll();
+
+    galleryContainers.forEach(container => {
+        const mainImage = container.previousElementSibling.querySelector('img[id^="main-image"]');
+        const galleryImages = container.querySelectorAll('img');
+
+        galleryImages.forEach(image => {
+            image.addEventListener('click', () => {
+                mainImage.src = image.getAttribute('data-image');
+            });
+        });
+    });
+});
+
+
+    </script>
+</body>
+</html>

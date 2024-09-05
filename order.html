@@ -1,0 +1,469 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Резюме Замовлення - Gold Bears</title>
+    <link rel="icon" href="picture/logo.png" type="image/x-icon">
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+            background-color: rgb(245, 245, 220);
+            color: #4A5D23;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+        header {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: rgba(245, 245, 220, 0.9);
+            color: #4A5D23;
+            padding: 15px 0;
+            text-align: center;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+            z-index: 1000;
+            transition: all 0.3s ease;
+        }
+        header .logo {
+            margin-left: 20px;
+            height: 60px;
+            display: flex;
+            align-items: center;
+        }
+        header .logo img {
+            height: 80px;
+        }
+        header .title {
+            flex: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        header .title h1 {
+            margin: 0;
+            font-size: 26px;
+        }
+        header .nav {
+            display: flex;
+            gap: 20px;
+            font-size: 20px;
+            margin-right: 100px;
+        }
+        header .nav a {
+            color: #4A5D23;
+            text-decoration: none;
+            font-weight: bold;
+        }
+        header .nav a:hover {
+            text-decoration: underline;
+        }
+        .container {
+            margin-top: 80px;
+            padding: 20px;
+            flex: 1;
+        }
+        .btn-checkout {
+            background-color: #4A5D23;
+            color: #d8cab8;
+            border: none;
+            border-radius: 5px;
+            padding: 10px 20px;
+            cursor: pointer;
+            font-size: 16px;
+            transition: background-color 0.3s, transform 0.3s;
+            margin-top: 20px;
+            display: block;
+            text-align: center;
+            text-decoration: none;
+        }
+        .btn-checkout:hover {
+            background-color: #3e4a1e;
+            transform: translateY(-2px);
+        }
+        footer {
+            background-color: #dcdcb7;
+            color: #4A5D23;
+            padding: 20px;
+            text-align: center;
+            width: 100%;
+            position: relative;
+            margin-top: 20px;
+        }
+        .footer-content {
+            max-width: 100%;
+            margin: 0 auto;
+        }
+        .social-links {
+            margin-bottom: 10px;
+        }
+        .social-link {
+            margin: 0 10px;
+            color: #4A5D23;
+            text-decoration: none;
+        }
+        .social-link:hover {
+            text-decoration: underline;
+        }
+        .cart-panel {
+            position: fixed;
+            top: 0;
+            right: -100%;
+            width: 480px;
+            height: 100%;
+            background-color: rgba(245, 245, 220);
+            box-shadow: -2px 0 5px rgba(0, 0, 0, 0.5);
+            transition: right 0.3s ease;
+            padding: 20px;
+            box-sizing: border-box;
+            z-index: 1500;
+            overflow-y: auto; 
+        }
+        .cart-panel.show {
+            right: 0;
+        }
+        .cart-panel h2 {
+            margin-top: 0;
+            color: #4A5D23;
+        }
+        #overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            z-index: 1000;
+            display: none;
+        }
+        #overlay.show {
+            display: block;
+        }
+
+        .order-form {
+            background: #dcdcb7;
+            border-radius: 10px;
+            padding: 30px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+            max-width: 600px;
+            margin: 20px auto;
+            position: relative;
+        }
+        .order-form::before {
+            content: '';
+            position: absolute;
+            top: -20px;
+            left: 0;
+            width: 100%;
+            height: 10px;
+            background: #4A5D23;
+            border-radius: 10px 10px 0 0;
+        }
+        .order-form h2 {
+            margin-top: 0;
+            color: #4A5D23;
+            font-size: 24px;
+            text-align: center;
+        }
+        .order-form label {
+            display: block;
+            margin-bottom: 10px;
+            font-weight: bold;
+        }
+        .order-form input, .order-form textarea, .order-form select {
+            width: calc(100% - 22px);
+            padding: 10px;
+            border: 1px solid #4A5D23;
+            border-radius: 5px;
+            margin-bottom: 15px;
+            font-size: 16px;
+        }
+        .order-form button {
+            background-color: #4A5D23;
+            color: #d8cab8;
+            border: none;
+            border-radius: 5px;
+            padding: 10px 20px;
+            cursor: pointer;
+            font-size: 16px;
+            transition: background-color 0.3s, transform 0.3s;
+            display: block;
+            width: 100%;
+        }
+        .order-form button:hover {
+            background-color: #3e4a1e;
+            transform: translateY(-2px);
+        }
+        .step {
+            display: none;
+        }
+        .step.active {
+            display: block;
+        }
+        .delivery-options {
+            display: flex;
+            gap: 10px;
+        }
+        .delivery-options label {
+            display: flex;
+            align-items: center;
+            cursor: pointer;
+            padding: 10px;
+            border: 1px solid #4A5D23;
+            border-radius: 5px;
+            transition: background-color 0.3s, border-color 0.3s;
+        }
+        .delivery-options input[type="radio"] {
+            margin-right: 10px;
+        }
+        .delivery-options img {
+            width: 50px;
+            height: auto;
+            margin-right: 10px;
+        }
+        .delivery-options label.selected {
+            background-color: #4A5D23;
+            color: #d8cab8;
+            border-color: #4A5D23;
+        }
+        .form-buttons {
+            display: flex;
+            justify-content: space-between;
+            gap: 10px;
+        }
+        .form-buttons button {
+            width: 48%;
+        }
+        .order-summary {
+            background: #e8e8d7;
+            border-radius: 10px;
+            padding: 20px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            max-width: 600px;
+            margin: 20px auto;
+        }
+        .payment-options {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    justify-content: center;
+    margin-bottom: 20px; 
+}
+
+.payment-options label {
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    padding: 15px;
+    border: 2px solid #4A5D23;
+    border-radius: 8px;
+    transition: background-color 0.3s, border-color 0.3s;
+    flex: 1 1 45%;
+    max-width: 300px;
+    box-sizing: border-box;
+    text-align: center; 
+}
+
+.payment-options input[type="radio"] {
+    margin-right: 15px;
+}
+
+.payment-options img {
+    width: 30px;
+    height: auto;
+    margin-right: 15px;
+}
+
+.payment-options label.selected {
+    background-color: #4A5D23;
+    color: #d8cab8;
+    border-color: #4A5D23;
+}
+
+.form-buttons {
+    display: flex;
+    justify-content: space-between;
+    gap: 10px;
+    margin-top: 20px;
+}
+
+.form-buttons button {
+    width: 48%;
+    padding: 10px;
+    font-size: 16px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s, color 0.3s;
+}
+
+.form-buttons .prev-step {
+    background-color: #f0f0f0;
+    color: #333;
+}
+
+.form-buttons .next-step {
+    background-color: #4A5D23;
+    color: #fff;
+}
+
+.form-buttons .prev-step:hover {
+    background-color: #e0e0e0;
+}
+
+.form-buttons .next-step:hover {
+    background-color: #3a4c1f;
+}
+
+#order-form-container {
+    text-align: center;
+    margin-top: 20px;
+}
+
+
+    </style>
+</head>
+<body>
+    <header id="header">
+        <a href="index.html" class="logo">
+            <img src="picture/logo.png" alt="Logo">
+        </a>        
+        <div class="title">
+            <h1>Gold Bears</h1>
+        </div>
+        <div class="nav">
+            <a href="restaurant.html">Restaurant</a>
+            <a href="hotel.html">Hotel</a>
+        </div>
+    </header>
+
+    <div class="container">
+        <form class="order-form">
+            <div class="step step-1 active">
+                <h2>Вибір Способу Доставки</h2>
+                <div class="delivery-options">
+                    <label>
+                        <input type="radio" name="delivery" value="delivery" required>
+                        Доставка
+                    </label>
+                    <label>
+                        <input type="radio" name="delivery" value="pickup" required>
+                        Самовивіз
+                    </label>
+                </div>
+                <div class="form-buttons">
+                    <button type="button" class="next-step">Далі</button>
+                </div>
+            </div>
+
+            <div class="step step-2">
+                <h2>Інформація про Доставку</h2>
+                <label for="name">Ім'я</label>
+                <input type="text" id="name" name="name" required>
+
+                <label for="phone">Телефон</label>
+                <input type="tel" id="phone" name="phone" required>
+
+                <label for="address">Адреса</label>
+                <input type="text" id="address" name="address" required>
+
+                <div class="form-buttons">
+                    <button type="button" class="prev-step">Назад</button>
+                    <button type="button" class="next-step">Далі</button>
+                </div>
+            </div>
+
+            <div class="step step-3">
+                <h2>Спосіб Оплати</h2>
+                <div class="payment-options">
+                    <label>
+                        <input type="radio" name="payment" value="credit-card" required>
+                        Картка
+                    </label>
+                    <label>
+                        <input type="radio" name="payment" value="cash" required>
+                        Готівка
+                    </label>
+                </div>
+
+                <div class="form-buttons">
+                    <button type="button" class="prev-step">Назад</button>
+                    <button type="button" class="next-step">Далі</button>
+                </div>
+            </div>
+
+
+            <div class="step step-4">
+                <h2>Підтвердження Замовлення</h2>
+                <p>Перевірте, будь ласка, ваші дані:</p>
+                <div class="order-summary">
+                    <p><strong>Спосіб Доставки:</strong> <span id="summary-delivery"></span></p>
+                    <p><strong>Ім'я:</strong> <span id="summary-name"></span></p>
+                    <p><strong>Телефон:</strong> <span id="summary-phone"></span></p>
+                    <p><strong>Адреса:</strong> <span id="summary-address"></span></p>
+                </div>
+                <button type="submit" id="confirm-order">Підтвердити Замовлення</button>
+            </div>
+        </form>
+
+    </div>
+
+    <footer>
+        <div class="footer-content">
+            <p>© 2024 Gold Bears. Всі права захищені.</p>
+            <div class="social-links">
+                <a href="#" class="social-link">Facebook</a>
+                <a href="#" class="social-link">Instagram</a>
+                <a href="#" class="social-link">Twitter</a>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        const steps = document.querySelectorAll('.step');
+        const nextButtons = document.querySelectorAll('.next-step');
+        const prevButtons = document.querySelectorAll('.prev-step');
+
+        nextButtons.forEach(button => {
+            button.addEventListener('click', () => {
+                const currentStep = button.closest('.step');
+                const nextStep = currentStep.nextElementSibling;
+
+                if (nextStep && nextStep.classList.contains('step')) {
+                    currentStep.classList.remove('active');
+                    nextStep.classList.add('active');
+
+                    if (nextStep.classList.contains('step-4')) {
+                        document.getElementById('summary-delivery').innerText = document.querySelector('input[name="delivery"]:checked').parentElement.textContent.trim();
+                        document.getElementById('summary-name').innerText = document.getElementById('name').value;
+                        document.getElementById('summary-phone').innerText = document.getElementById('phone').value;
+                        document.getElementById('summary-address').innerText = document.getElementById('address').value;
+                    }
+                }
+            });
+        });
+
+        prevButtons.forEach(button => {
+            button.addEventListener('click', () => {
+                const currentStep = button.closest('.step');
+                const prevStep = currentStep.previousElementSibling;
+
+                if (prevStep && prevStep.classList.contains('step')) {
+                    currentStep.classList.remove('active');
+                    prevStep.classList.add('active');
+                }
+            });
+        });
+
+
+
+    </script>
+</body>
+</html>

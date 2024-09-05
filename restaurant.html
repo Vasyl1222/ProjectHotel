@@ -1,0 +1,802 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gold Bears Restaurant</title>
+    <link rel="icon" href="picture/logo.png" type="image/x-icon">
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+            background-color: rgb(245, 245, 220); 
+            color: #4A5D23; 
+            overflow-x: hidden; 
+            
+        }
+
+        header {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: rgba(245, 245, 220, 0.7); 
+            color: #4A5D23; 
+            padding: 15px 0; 
+            text-align: center;
+            backdrop-filter: blur(10px); 
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1); 
+            z-index: 1000; 
+            transition: all 0.3s ease;
+        }
+
+        header.small {
+            padding: 7px 0; 
+            font-size: 0.8em;
+        }
+
+        header .logo {
+            margin-left: 20px;
+            height: 60px; 
+            display: flex;
+            align-items: center;
+            transition: height 0.3s ease; 
+        }
+
+        header.small .logo {
+            height: 30px; 
+        }
+
+        header .logo img {
+            height: 80px; 
+            transition: height 0.3s ease; 
+        }
+
+        header.small .logo img {
+            height: 40px; 
+        }
+
+        header .title {
+            flex: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: font-size 0.3s ease; 
+        }
+
+        header .title h1 {
+            margin: 0;
+            font-size: 26px; 
+            transition: font-size 0.3s ease; 
+        }
+
+        header.small .title h1 {
+            font-size: 14px; 
+        }
+
+        header .nav {
+            display: flex;
+            gap: 20px;
+            font-size: 20px; 
+            margin-right: 70px;
+            transition: font-size 0.3s ease;
+        }
+
+        header.small .nav {
+            font-size: 14px; 
+        }
+
+        header .nav a {
+            color: #4A5D23; 
+            text-decoration: none;
+            font-weight: bold;
+            transition: color 0.3s ease;
+        }
+
+        header .nav a:hover {
+            text-decoration: underline;
+        }
+
+        .hero-image {
+            background-image: url('picture/rest1.jpg'); 
+            background-size: cover;
+            width: 100%;
+            background-position: center;
+            height: 100vh;
+            margin-top: 60px; 
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #d8cab8; 
+            text-align: center;
+        }
+
+        .hero-text {
+            background-color: rgba(245, 245, 220, 0.7); 
+            padding: 20px;
+            color: #4A5D23;
+            border-radius: 10px;
+            opacity: 0; 
+            transform: translateY(20px); 
+            transition: opacity 0.5s ease, transform 0.5s ease; 
+            margin-left: 20px; 
+        }
+
+        .hero-text.show {
+            opacity: 1; 
+            transform: translateY(0); 
+        }
+
+        .section {
+            display: flex;
+            flex-wrap: left;
+            padding: 40px 20px;
+            align-items: center;
+            opacity: 0; 
+            transform: translateY(20px); 
+            transition: opacity 0.5s ease, transform 0.5s ease; 
+            
+        }
+
+        
+
+        .section img {
+            width: 50%;
+            max-width: 600px;
+            flex-shrink: 0;
+        }
+
+        .section .content {
+            width: 50%;
+            padding: 20px;
+            color: #4A5D23;
+            text-align: center;
+            font-size: 18px;
+        }
+
+        .section.show {
+            opacity: 1; 
+            transform: translateY(0); 
+        }
+
+        .divider {
+            height: 2px;
+            width: 1560px;
+            background-color: #D8CAB8; 
+            margin: 20px 0; 
+            margin-left: 50px;
+            align-items: center;
+            text-align: center;
+        }
+
+        .gallery-container {
+            display: flex;
+            justify-content: left;
+            align-items: center;
+            margin-left: 20px;
+            margin-top: -20px;
+        }
+
+        .gallery-container img {
+            width: 70px;
+            height: 70px;
+            object-fit: cover;
+            cursor: pointer;
+            border: 2px solid #4A5D23;
+            border-radius: 5px;
+            margin: 0 5px;
+            transition: border-color 0.3s ease;
+        }
+
+        .gallery-container img.active {
+            border-color: #d8cab8;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+        }
+
+        .gallery-container img:hover {
+            opacity: 0.8;
+        }
+        
+        footer {
+        background-color: #dcdcb7;
+        color: #4A5D23;
+        padding: 20px;
+        text-align: center;
+        position: relative;
+        clear: both; 
+        margin-top: 20px; 
+        margin-top: auto;
+    }
+
+    .button {
+        background-color: #4A5D23;
+        color: #d8cab8;
+        border: none;
+        border-radius: 5px;
+        padding: 15px 20px;
+        font-size: 16px;
+        cursor: pointer;
+        text-decoration: none;
+        display: inline-block;
+        transition: background-color 0.3s ease, color 0.3s ease;
+    }
+
+    .button:hover {
+        background-color: #3e4a1e;
+        color: #d8cab8;
+    }
+
+    @media (max-width: 768px) {
+    header {
+        padding: 10px 0;
+    }
+
+    header.small {
+        padding: 5px 0;
+    }
+
+    header .logo {
+        height: 40px;
+        margin-left: 10px;
+    }
+
+    header.small .logo {
+        height: 20px;
+    }
+
+    header .logo img {
+        height: 60px;
+    }
+
+    header.small .logo img {
+        height: 30px;
+    }
+
+    header .title h1 {
+        font-size: 20px;
+    }
+
+    header.small .title h1 {
+        font-size: 10px;
+    }
+
+    header .nav {
+        margin-right: 30px;
+        gap: 10px;
+        font-size: 16px;
+    }
+
+    header.small .nav {
+        font-size: 12px;
+    }
+    .column{
+        flex-direction:column
+    }
+    .gallery-container img {
+        justify-content: center;
+        flex-wrap: wrap;
+    }
+    .divider{
+        width: 100%;
+    }
+}
+
+@media (max-width: 480px) {
+    header {
+        padding: 8px 0;
+    }
+
+    header.small {
+        padding: 4px 0;
+    }
+
+    header .logo {
+        height: 30px;
+        margin-left: 5px;
+    }
+
+    header.small .logo {
+        height: 15px;
+    }
+
+    header .logo img {
+        height: 50px;
+    }
+
+    header.small .logo img {
+        height: 25px;
+    }
+
+    header .title h1 {
+        font-size: 18px;
+    }
+
+    header.small .title h1 {
+        font-size: 9px;
+    }
+
+    header .nav {
+        margin-right: 20px;
+        gap: 5px;
+        font-size: 14px;
+    }
+
+    header.small .nav {
+        font-size: 10px;
+    }
+    .column{
+        flex-direction:column
+    }
+    .gallery-container img {
+        justify-content: center;
+        flex-wrap: wrap;
+    }
+    .divider{
+        width: 100%;
+    }
+}
+@media (max-width: 768px) {
+    header .nav {
+        flex-direction: column;
+        gap: 10px;
+        align-items: center;
+        margin-right: 10px;
+    }
+
+    .section {
+        flex-direction: column;
+        margin-left: 0;
+        padding: 20px 10px;
+    }
+
+    .section img, .section .content {
+        width: 100%;
+        margin: 0;
+    }
+
+    .gallery-container {
+        flex-direction: column;
+        align-items: center;
+        margin: 20px 0;
+    }
+
+    .gallery-container img {
+        margin: 5px 0;
+        width: 90%;
+        max-width: 200px;
+        justify-content: center;
+        flex-wrap: wrap;
+    }
+    .column{
+        flex-direction:column
+    }
+    .divider{
+        width: 100%;
+    }
+}
+
+@media (max-width: 480px) {
+    header .nav {
+        font-size: 12px;
+        margin-right: 5px;
+    }
+
+    header .title h1 {
+        font-size: 14px;
+    }
+
+    .section {
+        padding: 15px 5px;
+    }
+
+    .gallery-container img {
+        width: 80px;
+        height: 80px;
+        justify-content: center;
+        flex-wrap: wrap;
+    }
+    .column{
+        flex-direction:column
+    }
+    .divider{
+        width: 100%;
+    }
+}
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+}
+
+main {
+    width: 100%;
+    max-width: 1200px;
+    margin: auto;
+}
+
+header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 20px;
+}
+
+.logo img {
+    max-width: 100px;
+}
+
+.title h1 {
+    font-size: 2em;
+}
+
+.nav {
+    display: flex;
+    gap: 15px;
+}
+
+.nav a {
+    text-decoration: none;
+    font-size: 1em;
+}
+
+/* Adjustments for smaller screens */
+@media (max-width: 768px) {
+    .title h1 {
+        font-size: 1.5em;
+    }
+
+    .nav {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .nav a {
+        font-size: 0.9em;
+    }
+
+    .hero-text {
+        text-align: center;
+        padding: 10px;
+    }
+
+    .section {
+        flex-direction: column;
+        align-items: center;
+        margin-left: 0;
+        text-align: center;
+    }
+
+    .section img {
+        width: 100%;
+        max-width: 300px;
+        height: auto;
+    }
+
+    .content {
+        margin: 20px;
+        text-align: center;
+    }
+
+    .gallery-container {
+        margin-left: 0;
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+        gap: 10px;
+    }
+
+    .gallery-container img {
+        width: 10%;
+        max-width: 150px;
+        height: auto;
+    }
+}
+
+/* Further adjustments for very small screens */
+@media (max-width: 480px) {
+    .title h1 {
+        font-size: 1.2em;
+    }
+
+    .nav a {
+        font-size: 0.8em;
+    }
+
+    .content {
+        font-size: 0.9em;
+        margin: 10px;
+    }
+
+    .section img {
+        max-width: 100%;
+    }
+
+    .gallery-container img {
+        width: 100%;
+        max-width: 100px;
+    }
+
+    .footer {
+        text-align: center;
+        font-size: 0.8em;
+    }
+}
+#header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 20px;
+    background: rgba(245, 245, 220, 0.7); 
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+/* Логотип */
+.logo img {
+    max-width: 100px;
+    height: auto;
+}
+
+/* Заголовок */
+.title h1 {
+    font-size: 1.5em;
+    margin: 0;
+}
+
+/* Меню навігації */
+.nav {
+    display: flex;
+    gap: 15px;
+}
+
+.nav a {
+    text-decoration: none;
+    color: #333;
+    font-size: 1em;
+}
+
+/* Адаптивні налаштування для середніх і малих екранів */
+@media (max-width: 768px) {
+    /* Вертикальне вирівнювання елементів на планшетах */
+    #header {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .title h1 {
+        font-size: 1.2em;
+    }
+
+    .nav {
+        flex-direction: column;
+        gap: 10px;
+    }
+}
+
+@media (max-width: 480px) {
+    /* Налаштування для мобільних телефонів */
+    #header {
+        padding: 10px;
+    }
+
+    .logo img {
+        max-width: 80px;
+    }
+
+    .title h1 {
+        font-size: 1em;
+    }
+
+    .nav {
+        gap: 8px;
+    }
+
+    .nav a {
+        font-size: 0.9em;
+    }
+}
+    </style>
+</head>
+<body>
+    <header id="header">
+        <a href="index.html" class="logo">
+            <img src="picture/logo.png" alt="Logo">
+        </a>        
+        <div class="title">
+            <h1>Gold Bears </h1>
+        </div>
+        <div class="nav">
+            <a href="restaurant.html">Restaurant</a>
+            <a href="hotel.html">Hotel</a>
+        </div>
+    </header>
+
+    <div class="hero-image">
+        <div class="hero-text">
+            <h3>Ресторація "Gold Bears"</h3>
+            <p>Якщо Ви любите смачну їжу і цінуєте дійсно вишукану кухню, тоді Вам сподобається в "Gold Bears".</p>
+            <p>До Ваших послуг - ресторан, кафе, альтанки, тераси. Ви обов'язково знайдете свій варіант.</p>
+            <p>З питань бронювання столиків чи святкування бенкетів звертайтесь:</p>
+            <p>Ресторан +38 028 625 32 71</p>
+            <p>Кафе +38 055 625 32 70</p>
+            <p>E-mail: Gold@Bears.com.ua</p>
+        </div>
+    </div>
+
+    <div class="column">
+        <div class="section" style="margin-left: 150px;">
+            <img id="main-image" src="picture/rest2.jpg" alt="Image"> 
+            <div class="content" style="text-align: left; font-size: 18px; margin-left: 50px; margin-right: 50px;">
+                <h2>Ресторан  «Gold Bears»</h2>
+                <p>Ресторан «Gold Bears» оформлений в європейському стилі. Зал розрахований на 150 місць в основному залі ресторану і 300 місць в залі-панорамі. Тут сподобається тим, хто любить вишуканість та елегантність. Також ресторан - це прекрасна пропозиція для організаторів конференцій, семінарів та інших подій.</p>
+                <p><strong>Серед пропозицій ресторану:</strong></p>
+                <ul>
+                    <li>Страви української та європейської кухонь</li>
+                    <li>Вина Італії, Франції, Чілі, Іспанії та України</li>
+                    <li>Бенкетне та фуршетне меню</li>
+                    <li>Затишна тераса та ароматний кальян</li>
+                </ul>
+                <a href="menu.html" class="button">Переглянути меню</a>
+            </div>
+        </div>
+        
+        <div class="gallery-container" style="margin-left: 165px;  ">
+            <img src="picture/rest2.jpg" alt="Extra Image 1" data-image="picture/rest2.jpg">
+            <img src="picture/rest3.jpg" alt="Extra Image 2" data-image="picture/rest3.jpg">
+            <img src="picture/rest4.jpg" alt="Extra Image 3" data-image="picture/rest4.jpg">
+            <img src="picture/rest5.jpg" alt="Extra Image 4" data-image="picture/rest5.jpg">
+        </div>
+
+</div>
+    
+ 
+    <div class="divider"></div> 
+    <div class="column">
+        <div class="section" style="margin-left: 150px; display:flex; ">
+            <div>
+                <img id="main-image-2" style="width: 100%; height: 100%;" src="picture/rest1.jpg" alt="Image"> 
+            </div>
+            <div class="content" style="text-align: left; font-size: 18px; margin-left: 50px; margin-right: 50px;">
+                <h2>Кафе «Gold Bears»</h2>
+                <p>На території рекреаційного комплексу працює кафе «Gold Bears». Інтер'єр кафе нагадує гостинну українську оселю.</p>
+                <p>Приміщення розділене на зали, які можуть прийняти як бенкет на 80 чоловік, так і тиху сімейну вечерю на 12 осіб або зустріч колег по бізнесу.</p>
+                <p><strong>Серед пропозицій кафе:</strong></p>
+                <ul>
+                    <li>Смачні страви української кухні</li>
+                    <li>Страви на мангалі та різні види шашлику</li>
+                    <li>Овочі "з димком" та зупа за старовинним рецептом</li>
+                    <li>Широкий асортимент розливного та пляшкового пива</li>
+                    <li>Дитяче меню</li>
+                </ul>
+                <a href="menu.html" class="button">Переглянути меню</a>
+            </div>
+        </div>
+        <div class="gallery-container" style="margin-left: 165px;  ">
+            <img src="picture/rest1.jpg" alt="Extra Image 1" data-image="picture/rest1.jpg">
+            <img src="picture/rest6.jpg" alt="Extra Image 2" data-image="picture/rest6.jpg">
+            <img src="picture/rest7.jpg" alt="Extra Image 3" data-image="picture/rest7.jpg">
+            <img src="picture/rest8.jpg" alt="Extra Image 4" data-image="picture/rest8.jpg">
+            <img src="picture/rest9.jpg" alt="Extra Image 5" data-image="picture/rest9.jpg">
+            <img src="picture/rest10.jpg" alt="Extra Image 6" data-image="picture/rest10.jpg">
+        </div>
+    </div>
+
+
+    
+    <div class="divider"></div>
+
+    <div class="column">
+        <div class="section" style="margin-left: 150px;">
+            <img id="main-image-2" src="picture/rest11.jpg" alt="Image"> 
+            <div class="content" style="text-align: left; font-size: 18px; margin-left: 50px; margin-right: 50px;">
+                <h2>Альтанки та літня тераса</h2>
+                <p>Для прихильників відпочинку на свіжому повітрі, прямо під відкритим небом, в парковій зоні комплексу, розташовані затишні альтанки для компаній до 6/10/20/30 осіб.</p>
+                <p>Свіже повітря, страви з мангалу, смачні страви з меню кафе.</p>
+                <p>А для дітей - дитячий майданчик. Кожен знайде собі щось до душі!</p>
+                <a href="bookinggazebos.html" class="button">Забронювати альтанку</a>
+
+            </div>
+        </div>
+        
+        
+        <div class="gallery-container" style="margin-left: 165px;">
+            <img src="picture/rest11.jpg" alt="Extra Image 1" data-image="picture/rest11.jpg">
+            <img src="picture/rest12.jpg" alt="Extra Image 2" data-image="picture/rest12.jpg">
+            <img src="picture/rest13.jpg" alt="Extra Image 3" data-image="picture/rest13.jpg">
+            <img src="picture/rest14.jpg" alt="Extra Image 4" data-image="picture/rest14.jpg">
+            <img src="picture/rest15.jpg" alt="Extra Image 5" data-image="picture/rest15.jpg">
+            <img src="picture/rest16.jpg" alt="Extra Image 6" data-image="picture/rest16.jpg">
+        </div>
+        
+    </div>
+
+    <div class="divider"></div>
+
+    <div class="column">
+        <div class="section" style="margin-left: 150px;">
+            <img id="main-image-2" src="picture/rest17.jpeg" style="width: 500px;" height="500px"  alt="Image"> 
+            <div class="content" style="text-align: left; font-size: 18px; margin-left: 50px; margin-right: 50px;">
+                <h2>Альтанки та літня тераса</h2>
+                <p>Для прихильників відпочинку на свіжому повітрі, прямо під відкритим небом, в парковій зоні комплексу, розташовані затишні альтанки для компаній до 6/10/20/30 осіб.</p>
+                <p>Свіже повітря, страви з мангалу, смачні страви з меню кафе.</p>
+                <p>А для дітей - дитячий майданчик. Кожен знайде собі щось до душі!</p>
+                <a href="menu.html" class="button">Переглянути меню</a>
+            </div>
+        </div>
+        
+        
+        <div class="gallery-container" style="margin-left: 165px; margin-bottom: 20px;">
+            <img src="picture/rest17.jpeg" alt="Extra Image 1" data-image="picture/rest17.jpeg">
+            <img src="picture/rest19.jpeg" alt="Extra Image 3" data-image="picture/rest19.jpeg">
+            <img src="picture/rest20.jpeg" alt="Extra Image 4" data-image="picture/rest20.jpeg">
+            <img src="picture/rest21.jpeg" alt="Extra Image 5" data-image="picture/rest21.jpeg">
+            <img src="picture/rest22.jpeg" alt="Extra Image 6" data-image="picture/rest22.jpeg">
+        </div>
+
+    </div>
+
+    
+
+    
+
+
+    <footer>
+        <div style="margin-bottom: 10px;" >
+            <a href="" style="margin: 0 10px; color: #4A5D23; text-decoration: none;">Facebook</a>
+            <a href="" style="margin: 0 10px; color: #4A5D23; text-decoration: none;">Instagram</a>
+            <a href="" style="margin: 0 10px; color: #4A5D23; text-decoration: none;">Twitter</a>
+        </div>
+        <p>Контактні дані: +38 (123) 456-78-90 | Gold@Bears.com.ua</p>
+        <p>&copy; 2024 «Gold Bears». Всі права захищені.</p>
+    </footer>
+    
+
+    <script>
+document.addEventListener('DOMContentLoaded', () => {
+    const header = document.getElementById('header');
+    const sections = document.querySelectorAll('.section, .hero-text');
+    const galleryContainers = document.querySelectorAll('.gallery-container');
+
+    window.addEventListener('scroll', () => {
+        if (window.scrollY > 50) {
+            header.classList.add('small');
+        } else {
+            header.classList.remove('small');
+        }
+    });
+
+    function animateOnScroll() {
+        const triggerBottom = window.innerHeight * 0.5;
+
+        sections.forEach(section => {
+            const sectionTop = section.getBoundingClientRect().top;
+
+            if (sectionTop < triggerBottom) {
+                section.classList.add('show');
+            } else {
+                section.classList.remove('show');
+            }
+        });
+    }
+
+    window.addEventListener('scroll', animateOnScroll);
+    animateOnScroll();
+
+    galleryContainers.forEach(container => {
+        const mainImage = container.previousElementSibling.querySelector('img[id^="main-image"]');
+        const galleryImages = container.querySelectorAll('img');
+
+        galleryImages.forEach(image => {
+            image.addEventListener('click', () => {
+                mainImage.src = image.getAttribute('data-image');
+            });
+        });
+    });
+});
+
+
+    </script>
+</body>
+</html>

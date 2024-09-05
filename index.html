@@ -1,0 +1,919 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gold Bears Restaurant</title>
+    <link rel="icon" href="picture/logo.png" type="image/x-icon">
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+            background-color: #f5f5dc; 
+            color: #4A5D23; 
+            overflow-x: hidden; 
+        }
+
+        header {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: rgba(245, 245, 220, 0.7); 
+            color: #4A5D23; 
+            padding: 15px 0; 
+            text-align: center;
+            backdrop-filter: blur(10px); 
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1); 
+            z-index: 1000; 
+            transition: all 0.3s ease;
+        }
+
+        header.small {
+            padding: 7px 0; 
+            font-size: 0.8em;
+        }
+
+        header .logo {
+            margin-left: 20px;
+            height: 60px; 
+            display: flex;
+            align-items: center;
+            transition: height 0.3s ease; 
+        }
+
+        header.small .logo {
+            height: 30px; 
+        }
+
+        header .logo img {
+            height: 80px; 
+            transition: height 0.3s ease; 
+        }
+
+        header.small .logo img {
+            height: 40px; 
+        }
+
+        header .title {
+            flex: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: font-size 0.3s ease; 
+        }
+
+        header .title h1 {
+            margin: 0;
+            font-size: 26px; 
+            transition: font-size 0.3s ease; 
+        }
+
+        header.small .title h1 {
+            font-size: 14px; 
+        }
+
+        header .nav {
+            display: flex;
+            gap: 20px;
+            font-size: 20px; 
+            margin-right: 70px;
+            transition: font-size 0.3s ease;
+        }
+
+        header.small .nav {
+            font-size: 14px; 
+        }
+
+        header .nav a {
+            color: #4A5D23; 
+            text-decoration: none;
+            font-weight: bold;
+            transition: color 0.3s ease;
+        }
+
+        header .nav a:hover {
+            text-decoration: underline;
+        }
+
+        .hero-image {
+            background-image: url('picture/main1.jpg'); 
+            background-size: cover;
+            width: 100%;
+            background-position: center;
+            height: 100vh;
+            margin-top: 60px; 
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #d8cab8; 
+            text-align: center;
+        }
+
+        .hero-text {
+            background-color: rgba(245, 245, 220, 0.7); 
+            padding: 20px;
+            color: #4A5D23;
+            border-radius: 10px;
+            opacity: 0; 
+            transform: translateY(20px); 
+            transition: opacity 0.5s ease, transform 0.5s ease; 
+        }
+
+        .hero-text.show {
+            opacity: 1; 
+            transform: translateY(0); 
+        }
+
+        .section {
+            display: flex;
+            flex-wrap: wrap;
+            padding: 40px 20px;
+            align-items: center;
+            opacity: 0; 
+            transform: translateY(20px); 
+            transition: opacity 0.5s ease, transform 0.5s ease; 
+            margin-left: 80px;
+            
+        }
+
+        .section:nth-child(even) {
+            flex-direction: row-reverse;
+        }
+
+        .section img {
+            width: 50%;
+            max-width: 600px;
+            flex-shrink: 0;
+        }
+
+        .section .content {
+            width: 50%;
+            padding: 20px;
+            color: #4A5D23;
+            text-align: center;
+            font-size: 18px;
+        }
+
+        .section.show {
+            opacity: 1; 
+            transform: translateY(0); 
+        }
+
+.contact-form {
+    padding: 40px;
+    background-color: #dcdcb7;
+    text-align: center;
+    position: relative;
+    border-radius: 10px; 
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); 
+    margin: 0 auto; 
+    max-width: 600px; 
+}
+
+.contact-form h2 {
+    margin-bottom: 20px;
+    font-size: 24px;
+    color: #4A5D23; 
+}
+
+.contact-form form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.contact-form form input, 
+.contact-form form textarea {
+    width: 100%; 
+    max-width: 500px; 
+    padding: 12px;
+    margin-bottom: 20px;
+    border: 1px solid #4A5D23; 
+    border-radius: 5px; 
+    font-size: 16px;
+    color: #4A5D23; 
+    background-color: #F5F5DC;
+    transition: border-color 0.3s ease; 
+}
+
+.contact-form form input:focus,
+.contact-form form textarea:focus {
+    border-color: #D8CAB8; 
+    outline: none; 
+}
+
+.contact-form form button {
+    padding: 12px 20px;
+    background-color: #4A5D23; 
+    color: #D8CAB8; 
+    border: none;
+    border-radius: 5px; 
+    cursor: pointer;
+    font-size: 16px;
+    transition: background-color 0.3s ease; 
+}
+
+.contact-form form button:hover {
+    background-color: #3b4d1a; 
+}
+
+
+
+
+.message {
+    display: none;
+    position: absolute;
+    top: 150px; 
+    left: 20px;
+    background-color: #4A5D23;
+    color: #D8CAB8;
+    padding: 10px 20px;
+    border-radius: 5px;
+}
+
+.mailbox,
+.plane {
+    opacity: 0;
+    transition: opacity 0.5s;
+}
+
+.message {
+    display: none;
+    position: absolute;
+    top: 150px;
+    left: 20px; 
+    background-color: #4A5D23;
+    color: #D8CAB8;
+    padding: 10px 20px;
+    border-radius: 5px;
+    max-width: 120px;
+}
+
+
+.plane {
+    position: absolute;
+    width: 40px;
+    height: 40px;
+    background-image: url('picture/plane.png');
+    background-size: cover;
+    left: 400px; 
+    top: 400px; 
+    transform: translate(-50%, -50%);
+    z-index: 1000;
+    opacity: 0; 
+    transition: opacity 0.5s;
+}
+
+
+.mailbox {
+    position: absolute;
+    width: 100px;
+    height: 100px;
+    background-image: url('picture/mailbox.png');
+    background-size: cover;
+    left: 20px; 
+    top: 30px;
+    opacity: 0;
+    transition: opacity 0.5s;
+}
+
+
+
+.plane.hidden {
+    opacity: 0;
+    transition: opacity 0.5s;
+}
+
+
+.truck {
+    position: absolute;
+    width: 100px;
+    height: 60px;
+    background-image: url('picture/truck.png');
+    background-size: cover;
+    left: 20px; 
+    top: 170px; 
+    opacity: 0; 
+    transition: opacity 0.5s;
+}
+
+@keyframes drive {
+    0% {
+        left: 0px;
+        top: 20px;
+    }
+    100% {
+        left: calc(20px + 500px); 
+        top: 20px;
+        opacity: 1;
+    }
+}
+@keyframes fly {
+    0% {
+        left: 400px; 
+        top: 400px; 
+        transform: translate(-50%, -50%);
+    }
+    100% {
+        left: calc(20px + 50px); 
+        top: calc(10px + 50px); 
+        transform: translate(-50%, -50%) rotate(-45deg); 
+
+    }
+}
+
+
+
+@keyframes explode {
+    0% {
+        opacity: 1;
+        transform: scale(1);
+    }
+    100% {
+        opacity: 0;
+        transform: scale(0);
+    }
+}
+
+.hotel-icon {
+    position: absolute;
+    width: 70px;
+    height: 70px;
+    background-image: url('picture/hotel.png');
+    background-size: cover;
+    left: calc(20px + 580px); 
+    top: 10px; 
+    opacity: 0; 
+    transition: opacity 0.5s;
+}
+
+
+.delivery-message {
+    display: none;
+    position: absolute;
+    top: 120px; 
+    left: 500px;
+    background-color: #4A5D23;
+    color: #D8CAB8;
+    padding: 10px 20px;
+    border-radius: 5px;
+    opacity: 0; 
+    transition: opacity 0.5s, transform 0.5s;
+    max-width: 150px; 
+    width: auto;
+}
+
+
+.thank-you-button {
+    position: absolute;
+    left: 500px;
+    bottom: 245px;
+    background-color: #4A5D23; 
+    color: #D8CAB8;
+    padding: 10px 20px;
+    border-radius: 5px;
+    font-size: 16px;
+    cursor: pointer;
+    display: none; 
+    transition: opacity 0.5s ease;
+    z-index: 1001;
+}
+
+.divider {
+    height: 2px;
+    width:1380px;
+    background-color: #D8CAB8; 
+    margin: 20px 0; 
+    margin-left: 80px;
+    align-items: center;
+}
+
+@media (max-width: 768px) {
+    header {
+        padding: 10px 0;
+    }
+
+    header .logo {
+        margin-left: 10px;
+        height: 50px;
+    }
+
+    header .logo img {
+        height: 50px;
+    }
+
+    header .title h1 {
+        font-size: 22px;
+    }
+
+    header .nav {
+        font-size: 18px;
+        margin-right: 40px;
+        gap: 15px;
+    }
+
+    .hero-image {
+        height: 80vh;
+    }
+
+    .hero-text {
+        padding: 15px;
+        font-size: 18px;
+    }
+    .section {
+        flex-direction: column;
+        padding: 30px 10px;
+        margin-left: 40px;
+    }
+
+    .section img {
+        width: 100%;
+        max-width: 400px;
+        margin-bottom: 20px;
+    }
+
+    .section .content {
+        width: 100%;
+        padding: 10px;
+        font-size: 16px;
+    }
+
+    .contact-form {
+        padding: 30px;
+        max-width: 500px;
+    }
+
+    .contact-form h2 {
+        font-size: 22px;
+    }
+
+    .contact-form form input, 
+    .contact-form form textarea {
+        max-width: 100%;
+        font-size: 15px;
+    }
+
+    .contact-form form button {
+        padding: 10px 18px;
+        font-size: 15px;
+    }
+    .message {
+        top: 120px;
+        left: 15px;
+        padding: 8px 18px;
+        max-width: 100px;
+    }
+
+    .plane {
+        width: 30px;
+        height: 30px;
+        left: 300px; 
+        top: 300px;
+    }
+
+    .mailbox {
+        width: 80px;
+        height: 80px;
+        top: 20px;
+    }
+
+    .truck {
+        width: 80px;
+        height: 50px;
+        top: 150px;
+    }
+    .hotel-icon {
+        width: 50px;
+        height: 50px;
+        left: calc(10px + 400px); 
+        top: 8px;
+    }
+
+    .delivery-message {
+        top: 100px; 
+        left: 350px;
+        padding: 8px 18px;
+        max-width: 130px; 
+    }
+
+    .thank-you-button {
+        left: 350px;
+        bottom: 200px;
+        font-size: 14px;
+    }
+
+    .divider {
+        width: 600px;
+        margin-left: 40px;
+    }
+
+
+}
+
+@media (max-width: 480px) {
+    header {
+        padding: 8px 0;
+    }
+
+    header .logo {
+        margin-left: 5px;
+        height: 40px;
+    }
+
+    header .logo img {
+        height: 40px;
+    }
+
+    header .title h1 {
+        font-size: 18px;
+    }
+
+    header .nav {
+        font-size: 16px;
+        margin-right: 20px;
+        gap: 10px;
+    }
+
+    .hero-image {
+        height: 60vh;
+        margin-top: 50px;
+    }
+
+    .hero-text {
+        padding: 10px;
+        font-size: 16px;
+    }
+    .section {
+        flex-direction: column;
+        padding: 20px 10px;
+        margin-left: 20px;
+    }
+
+    .section img {
+        width: 100%;
+        max-width: 300px;
+        margin-bottom: 15px;
+    }
+
+    .section .content {
+        width: 100%;
+        padding: 10px;
+        font-size: 14px;
+    }
+
+    .contact-form {
+        padding: 20px;
+        max-width: 90%;
+    }
+
+    .contact-form h2 {
+        font-size: 20px;
+    }
+
+    .contact-form form input, 
+    .contact-form form textarea {
+        max-width: 100%;
+        font-size: 14px;
+    }
+
+    .contact-form form button {
+        padding: 8px 16px;
+        font-size: 14px;
+    }
+    .message {
+        top: 100px;
+        left: 10px;
+        padding: 6px 16px;
+        max-width: 90px;
+        font-size: 14px;
+    }
+
+    .plane {
+        width: 25px;
+        height: 25px;
+        left: 250px; 
+        top: 250px;
+    }
+
+    .mailbox {
+        width: 60px;
+        height: 60px;
+        top: 15px;
+    }
+
+    .truck {
+        width: 60px;
+        height: 40px;
+        top: 130px;
+    }
+    .hotel-icon {
+        width: 40px;
+        height: 40px;
+        left: calc(5px + 200px); 
+        top: 5px;
+    }
+
+    .delivery-message {
+        top: 80px; 
+        left: 200px;
+        padding: 6px 16px;
+        max-width: 100px;
+        font-size: 14px;
+    }
+
+    .thank-you-button {
+        left: 200px;
+        bottom: 180px;
+        font-size: 12px;
+    }
+
+    .divider {
+        width: 300px;
+        margin-left: 20px;
+    }
+
+}
+    </style>
+</head>
+<body>
+    <header id="header">
+        <a href="index.html" class="logo">
+            <img src="picture/logo.png" alt="Logo">
+        </a>        
+        <div class="title">
+            <h1>Gold Bears </h1>
+        </div>
+        <div class="nav">
+            <a href="restaurant.html">Restaurant</a>
+            <a href="hotel.html">Hotel</a>
+        </div>
+    </header>
+
+    <div class="hero-image">
+        <div class="hero-text">
+            <h2>Вітаємо в Gold Bears</h2>
+            <p>Відкрийте для себе найкращий відпочинок з нами</p>
+        </div>
+    </div>
+
+    <div class="section" >
+    <img src="picture/main2.jpg" alt="Image"> 
+    <div class="content">
+        <h2>Наш Готельно-Ресторанний Комплекс</h2>
+        <p>В «Gold Bears» ми пропонуємо неперевершений комфорт та якість обслуговування. Наш персонал з більш ніж 200 працівників завжди готовий створити найкращі умови для вашого відпочинку.</p>
+    </div>
+</div>
+
+<div class="divider"></div>
+
+<div class="section">
+    <div class="content">
+        <h2>Найкращі Страви</h2>
+        <p>Наш ресторан пропонує вишукані страви від кращих шеф-кухарів, які задовольнять найвибагливіші смаки.</p>
+    </div>
+    <img src="picture/main3.png" alt="Image"> 
+</div>
+
+
+<div class="divider"></div>
+
+<div class="section">
+    <img src="picture/main4.jpg" alt="Image">
+    <div class="content">
+        <h2>Розкішні Номери</h2>
+        <p>Наш готель пропонує розкішні номери з усіма зручностями, щоб ваш відпочинок був максимально комфортним.</p>
+    </div>
+</div>
+
+<div class="divider"></div> 
+
+<div class="section">
+    <div class="content">
+        <h2>Обслуговуючий персонал</h2>
+        <p>Це лише маленька частина нашого персоналу, який завжди буде вас обслуговувати. Ми з радістю надамо вам кваліфіковану допомогу та підтримку в будь-який час. Дякуємо за вашу довіру!</p>
+    </div>
+    <img src="picture/main5.jpg" alt="Image"> 
+</div>
+
+<div class="divider"></div> 
+
+
+
+    <div style="margin-top: 50px;" id="contact-form" class="contact-form">
+        <h2>Зв'яжіться з нами</h2>
+        <form id="contact-form">
+            <div style="margin-bottom: 20px;">
+                <input type="text" name="name" placeholder="Ваше ім'я" required>
+            </div>
+            <div style="margin-bottom: 20px;">
+                <input type="tel" name="phone" placeholder="Ваш телефон" required>
+            </div>
+            
+            <div style="margin-bottom: 20px;">
+                <textarea name="message" placeholder="Ваше повідомлення" required></textarea>
+            </div>
+            <button type="submit">Надіслати</button>
+        </form>
+        <div class="plane" id="plane"></div>
+        <div class="mailbox" id="mailbox"></div>
+        <div class="message" id="message">Повідомлення відправлено</div>
+        <div class="truck" id="truck"></div>
+        <div class="hotel-icon" id="hotel-icon"></div> 
+        <div class="delivery-message" id="delivery-message">Повідомлення доставлено</div>
+        <div class="thank-you-button" id="thank-you-button">Дякуємо</div>
+
+    </div>
+    
+    
+
+    
+
+<div class="special-offers" style="padding: 40px; text-align: center;">
+    <h2>Спеціальні пропозиції</h2>
+    <div class="divider"></div> 
+
+    <div style="display: flex; flex-wrap: wrap; gap: 20px; justify-content: center;">
+        <div style="width: 200px; padding: 20px; background-color: #dcdcb7; box-shadow: 0 2px 4px rgba(0,0,0,0.1);">
+            <h3>Знижка 20%</h3>
+            <p>Отримайте знижку 20% на перше замовлення в ресторані.</p>
+        </div>
+        <div style="width: 200px; padding: 20px; background-color: #dcdcb7; box-shadow: 0 2px 4px rgba(0,0,0,0.1);">
+            <h3>Безкоштовна ніч</h3>
+            <p>Забронюйте 3 ночі і отримайте 4-ту безкоштовно.</p>
+        </div>
+        <div style="width: 200px; padding: 20px; background-color: #dcdcb7; box-shadow: 0 2px 4px rgba(0,0,0,0.1);">
+            <h3>Безкоштовний напій</h3>
+            <p>Отримайте безкоштовний напій при кожному обіді.</p>
+        </div>
+        <div style="width: 200px; padding: 20px; background-color: #dcdcb7; box-shadow: 0 2px 4px rgba(0,0,0,0.1);">
+            <h3>Пізній виїзд</h3>
+            <p>Отримайте можливість пізнього виїзду без додаткової оплати.</p>
+        </div>
+    </div>
+</div>
+
+
+<footer style="background-color: #dcdcb7; color: #4A5D23; padding: 20px; text-align: center; position: relative;">
+    <div style="margin-bottom: 10px;">
+        <a href="" style="margin: 0 10px; color: #4A5D23; text-decoration: none;">Facebook</a>
+        <a href="" style="margin: 0 10px; color: #4A5D23; text-decoration: none;">Instagram</a>
+        <a href="" style="margin: 0 10px; color: #4A5D23; text-decoration: none;">Twitter</a>
+    </div>
+    <p>Контактні дані: +38 (123) 456-78-90 | Gold@Bears.com.ua</p>
+    <p>&copy; 2024 «Gold Bears». Всі права захищені.</p>
+</footer>
+
+    <style>
+        @keyframes fadeOut {
+            from { opacity: 1; }
+            to { opacity: 0; }
+        }
+        
+        .fade-out {
+            animation: fadeOut 1s forwards;
+        }
+        
+        #truck, #hotel-icon, #delivery-message, #thank-you-button {
+            transition: opacity 1s ease-out;
+        }
+
+        .contact-menu, .special-offers {
+    transform: translateY(0%);
+    opacity: 0;
+    transition: opacity 0.5s ease, transform 0.5s ease; 
+}
+
+.show {
+    transform: translateX(0%);
+    opacity: 1;
+}
+
+        </style>
+        
+        <script>
+           document.addEventListener('DOMContentLoaded', () => {
+    const header = document.getElementById('header');
+    const sections = document.querySelectorAll('.section, .hero-text, .contact-form, .special-offers');
+    const form = document.getElementById('contact-form');
+    const message = document.getElementById('message');
+    const plane = document.getElementById('plane');
+    const mailbox = document.getElementById('mailbox');
+    const truck = document.getElementById('truck');
+    const hotelIcon = document.getElementById('hotel-icon');
+    const deliveryMessage = document.getElementById('delivery-message');
+    const thankYouButton = document.getElementById('thank-you-button');
+    
+    window.addEventListener('scroll', () => {
+        if (window.scrollY > 50) {
+            header.classList.add('small');
+        } else {
+            header.classList.remove('small');
+        }
+    });
+
+    function animateOnScroll() {
+        const triggerBottom = window.innerHeight * 0.5;
+
+        sections.forEach(section => {
+            const sectionTop = section.getBoundingClientRect().top;
+
+            if (sectionTop < triggerBottom) {
+                section.classList.add('show');
+            } else {
+                section.classList.remove('show');
+            }
+        });
+    }
+
+    window.addEventListener('scroll', animateOnScroll);
+    animateOnScroll();
+
+    form.addEventListener('submit', (event) => {
+        event.preventDefault();
+        
+        mailbox.style.display = 'block';
+        mailbox.style.opacity = 1;
+        plane.style.display = 'block';
+        plane.style.opacity = 1;
+        plane.style.animation = 'fly 2s forwards';
+
+        setTimeout(() => {
+            mailbox.style.opacity = 0;
+            plane.style.opacity = 0;
+            setTimeout(() => {
+                mailbox.style.display = 'none';
+                plane.style.display = 'none';
+                message.style.display = 'block';
+                message.style.opacity = 1;
+            }, 500);  
+        }, 2000);
+
+        setTimeout(() => {
+            message.style.opacity = 0;
+            setTimeout(() => {
+                message.style.display = 'none';
+
+                hotelIcon.style.display = 'block';
+                hotelIcon.style.opacity = 1;
+                truck.style.display = 'block';
+                truck.style.opacity = 1;
+                truck.style.animation = 'drive 3s forwards';
+            }, 500);  
+
+        }, 3000);
+
+        setTimeout(() => {
+            deliveryMessage.style.display = 'block';
+            thankYouButton.style.display = 'block';
+            deliveryMessage.style.opacity = 1;
+            thankYouButton.style.opacity = 1;
+        }, 6000);
+
+        setTimeout(() => {
+            truck.style.opacity = 0;
+            hotelIcon.style.opacity = 0;
+            deliveryMessage.style.opacity = 0;
+            thankYouButton.style.opacity = 0;
+            setTimeout(() => {
+                truck.style.display = 'none';
+                hotelIcon.style.display = 'none';
+                deliveryMessage.style.display = 'none';
+                thankYouButton.style.display = 'none';
+
+            }, 500);  
+        }, 9000);
+        form.reset();
+    });
+
+    thankYouButton.addEventListener('click', () => {
+        form.reset();
+
+        thankYouButton.style.display = 'none';
+        deliveryMessage.style.display = 'none';
+    });
+
+    const contactMenu = document.querySelector('.contact-menu');
+    const specialOffers = document.querySelector('.special-offers');
+
+    function showContactMenu() {
+        contactMenu.classList.add('show');
+    }
+
+    function showSpecialOffers() {
+        specialOffers.classList.add('show');
+    }
+
+    setTimeout(showContactMenu, 100);
+    setTimeout(showSpecialOffers, 400);
+});
+
+        </script>
+            
+            
+    </body>
+</html>
+
